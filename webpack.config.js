@@ -9,14 +9,15 @@ var { TypedCssModulesPlugin } = require('typed-css-modules-webpack-plugin');
 var commit = '"unknown"';
 var version = '"unknown"';
 // Don't show COMMIT/VERSION on Heroku (crashes, because no git dir)
-if (process.env.PATH.indexOf('heroku') === -1) {
-    // show full git version
+try {
     var { GitRevisionPlugin } = require('git-revision-webpack-plugin');
     var gitRevisionPlugin = new GitRevisionPlugin({
         versionCommand: 'describe --always --tags --dirty',
     });
     commit = JSON.stringify(gitRevisionPlugin.commithash());
     version = JSON.stringify(gitRevisionPlugin.version());
+} catch (e) {
+    // fallback to unknown if .git is missing
 }
 
 function cleanAndValidateUrl(url) {
