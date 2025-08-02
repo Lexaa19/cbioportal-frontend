@@ -5,7 +5,10 @@ COPY . .
 
 ENV BRANCH_ENV=master
 
-RUN yarn install --frozen-lockfile --ignore-engines
-RUN yarn run buildDLL:dev && yarn run buildModules && yarn run build
+
+RUN yarn install --frozen-lockfile --ignore-engines \
+    && yarn run buildDLL:dev --silent \
+    && yarn run buildModules --silent \
+    && yarn run build --silent
 
 CMD yarn run start
