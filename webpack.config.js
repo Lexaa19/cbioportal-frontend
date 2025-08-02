@@ -92,7 +92,7 @@ var sassResourcesLoader = {
 };
 
 var config = {
-    stats: 'errors-only',
+    stats: 'detailed',
     entry: [`babel-polyfill`, `${path.join(src, 'appBootstrapper.tsx')}`],
     output: {
         path: path.resolve(__dirname, 'dist'),
