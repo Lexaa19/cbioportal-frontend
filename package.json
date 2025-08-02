@@ -30,7 +30,7 @@
     "buildDLL:dev": "yarn run clean && cross-env NODE_ENV=development webpack --config vendor-bundles.webpack.config.js",
     "build:size": "yarn run clean && yarn run buildDLL:prod && cross-env NODE_ENV=production webpack --json > stats.json",
     "buildBootstrap": "sass --style :compressed src/globalStyles/bootstrap-entry.scss src/globalStyles/prefixed-bootstrap.min.css",
-    "heroku-postbuild": "yarn run build && yarn add pushstate-server@3.0.1 -g",
+    "heroku-postbuild": "yarn run buildDLL:dev && yarn run buildModules && yarn run build",
     "updateAPI": "yarn run fetchAPI && yarn run buildAPI && yarn run updateOncoKbAPI && yarn run updateGenomeNexusAPI",
     "convertToSwagger2": "./scripts/convert_to_swagger2.sh && yarn run extendSwagger2Converter",
     "fetchAPILocal": "export CBIOPORTAL_URL=http://localhost:8082 && curl -s -L -k ${CBIOPORTAL_URL}/api/v3/api-docs/public > packages/cbioportal-ts-api-client/src/generated/CBioPortalAPI-docs.json && curl -s -L -k ${CBIOPORTAL_URL}/api/v3/api-docs/internal | json > packages/cbioportal-ts-api-client/src/generated/CBioPortalAPIInternal-docs.json && yarn run convertToSwagger2",

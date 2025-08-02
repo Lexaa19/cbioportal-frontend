@@ -8,7 +8,8 @@
 
         window.devContext = true;
         window.frontendConfig = {
-        }
+        API_ROOT: "https://web-production-0931b.up.railway.app/api"
+    }
 
         /* REMOVED: This is an example of how to add custom tabs to the patient page. Enabling this will clobber localStorage.frontendConfig that is set through the browser console
         localStorage.frontendConfig = JSON.stringify(
@@ -53,8 +54,25 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" />
 </head>
 <body>
-
 <div id="reactRoot"></div>
+
+<!-- Add this below your reactRoot div, before </body> -->
+<button onclick="testStudiesApi()">Test Studies API</button>
+<script>
+function testStudiesApi() {
+    fetch(window.frontendConfig.API_ROOT + '/studies?projection=SUMMARY&pageSize=10&pageNumber=0&sortBy=studyId&direction=ASC')
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        alert('Check console for API response!');
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('API request failed. See console for details.');
+      });
+}
+</script>
 
 </body>
 </html>
+
