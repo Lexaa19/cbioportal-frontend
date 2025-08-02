@@ -7,8 +7,8 @@ ENV BRANCH_ENV=master
 
 
 RUN yarn install --frozen-lockfile --ignore-engines \
-    && yarn run buildDLL:dev --silent \
-    && yarn run buildModules --silent \
-    && yarn run build --silent
+    && yarn run buildDLL:dev \
+    && yarn run buildModules \
+    && yarn run build
 
 CMD yarn run start
